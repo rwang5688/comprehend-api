@@ -1,16 +1,8 @@
+import boto3
 import json
 
 
 def lambda_handler(event, context):
-from __future__ import print_function
-
-import boto3
-import json
-
-print('Loading function')
-
-
-def handler(event, context):
     '''Provide an event that contains the following keys:
 
       - operation: one of the operations in the operations dict below
