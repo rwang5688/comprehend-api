@@ -15,7 +15,7 @@ Parameters:
     Description: DynamoDB Table Name
     Type: String
     ConstraintDescription: DynamoDB Table Name
-    Default: comprehend-api-table-prod
+    Default: comprehend-api-table
 
 Resources:
   DynamoDBTable:
@@ -39,7 +39,7 @@ Resources:
     Properties:
       CodeUri: comprehend_api/
       Handler: app.lambda_handler
-      Runtime: python3.7
+      Runtime: python3.9
       Policies: 
         - AmazonComprehendFullAccess
         - AmazonDynamoDBFullAccess
