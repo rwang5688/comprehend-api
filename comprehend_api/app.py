@@ -2,38 +2,54 @@ import json
 
 
 def lambda_handler(event, context):
-    """Lambda handler for Comprehend API call
+from __future__ import print_function
 
-    Parameters
-    ----------
-    event: dict, required
-        API Gateway Lambda Proxy Input Format
+import boto3
+import json
 
-        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+print('Loading function')
 
-    context: object, required
-        Lambda Context runtime methods and attributes
 
-        Context doc: https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
+def handler(event, context):
+    '''Provide an event that contains the following keys:
 
-    Returns
-    ------
-    API Gateway Lambda Proxy Output Format: dict
-
-        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
-    """
-
-    # DEBUG: print event as received
+      - operation: one of the operations in the operations dict below
+      - tableName: required for operations that interact with DynamoDB
+      - payload: a parameter to pass to the operation being performed
+    '''
+    #print("Received event: " + json.dumps(event, indent=2))
     print("event: %s" % (event))
     
-    # convert body value to Python dictionary
+    # convert body from JSON object to Python dictionary
     body = json.loads(event['body'])
     print("body: %s" % (body))
+    
+    operation = body['operation']
 
-    # perform the equivalent of Postman Echo
+    if 'tableName' in body:
+        dynamo = boto3.resource('dynamodb').Table(body['tableName'])
+
+    operations = {
+        'create': lambda x: dynamo.put_item(**x),
+        'read': lambda x: dynamo.get_item(**x),
+        'update': lambda x: dynamo.update_item(**x),
+        'delete': lambda x: dynamo.delete_item(**x),
+        'list': lambda x: dynamo.scan(**x),
+        'echo': lambda x: x,
+        'ping': lambda x: 'pong'
+    }
+    
+    response = ""
+    if operation in operations:
+        # operate on payload as Python dictionary
+        response = operations[operation](body['payload'])
+    else:
+        raise ValueError('Unrecognized operation "{}"'.format(operation))
+        
     return {
         "statusCode": 200,
         "body": json.dumps({
-            "message": body
+            "response": response,
+            # "location": ip.text.replace("\n", "")
         }),
     }
