@@ -13,8 +13,8 @@ def lambda_handler(event, context):
       - tableName: required for operations that interact with DynamoDB
       - payload: a parameter to pass to the operation being performed
     '''
-    #print("Received event: " + json.dumps(event, indent=2))
-    print("event: %s" % (event))
+    # DEBUG: print event with formattings
+    print("event: %s" % json.dumps(event, indent=2))
     
     # convert body from JSON object to Python dictionary
     body = json.loads(event['body'])
