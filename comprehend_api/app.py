@@ -41,7 +41,8 @@ def lambda_handler(event, context):
         response = operations[operation](body['payload'])
     else:
         raise ValueError('Unrecognized operation "{}"'.format(operation))
-        
+    print("response: %s" % (response))
+
     return {
         "statusCode": 200,
         "body": json.dumps({
