@@ -32,7 +32,7 @@ def lambda_handler(event, context):
         'update': lambda x: dynamo.update_item(**x),
         'delete': lambda x: dynamo.delete_item(**x),
         'list': lambda x: dynamo.scan(**x),
-        'detect': lambda x: comprehend_util.call_detect_sentiment(the_input=x, language_code='en'),
+        'detect': lambda x: comprehend_util.call_detect_sentiment(the_input=**x, language_code='en'),
         'echo': lambda x: x,
         'ping': lambda x: 'pong'
     }
@@ -52,4 +52,3 @@ def lambda_handler(event, context):
         }),
     }
 
-    
