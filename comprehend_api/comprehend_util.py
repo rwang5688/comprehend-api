@@ -14,7 +14,7 @@ def call_custom_comprehend_model(the_input=None,endpoint_arn=None):
         print ("message: %s" % message)
 
         response = client.classify_document(
-            Text=the_input,
+            Text=message,
             EndpointArn=endpoint_arn
             )
     
@@ -34,7 +34,7 @@ def call_detect_sentiment(the_input=None,language_code=None):
         print ("message: %s" % message)
 
         response = client.detect_sentiment(
-            Text=the_input,
+            Text=message,
             LanguageCode=language_code
             )
     
