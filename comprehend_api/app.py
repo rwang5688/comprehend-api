@@ -47,13 +47,9 @@ def lambda_handler(event, context):
     
     print("response: %s" % json.dumps(response, indent=2))
 
-    return response
-
-    # below is what we used to return
     return {
         "statusCode": 200,
         "body": json.dumps({
             "response": response
         }),
     }
-
