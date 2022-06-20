@@ -37,7 +37,7 @@ def lambda_handler(event, context):
         'ping': lambda x: 'pong'
     }
     
-    response = ""
+    response = {}
     if operation in operations:
         # operate on payload as Python dictionary
         response = operations[operation](body['payload'])
@@ -45,6 +45,9 @@ def lambda_handler(event, context):
         raise ValueError('Unrecognized operation "{}"'.format(operation))
     print("response: %s" % (response))
 
+    return response
+
+    # below is what we used to return
     return {
         "statusCode": 200,
         "body": json.dumps({
