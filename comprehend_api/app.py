@@ -38,12 +38,14 @@ def lambda_handler(event, context):
     }
     
     response = {}
+
     if operation in operations:
         # operate on payload as Python dictionary
         response = operations[operation](body['payload'])
     else:
         raise ValueError('Unrecognized operation "{}"'.format(operation))
-    print("response: %s" % (response))
+    
+    print("response: %s" % json.dumps(response, indent=2))
 
     return response
 
