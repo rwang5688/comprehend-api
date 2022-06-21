@@ -1,11 +1,6 @@
-from __future__ import print_function
-
 import boto3
 import comprehend_util
 import json
-
-print('Loading function')
-
 
 def lambda_handler(event, context):
     '''Provide an event that contains the following keys:
