@@ -3,7 +3,10 @@ import json
 
 
 def call_custom_comprehend_model(the_input=None,endpoint_arn=None):
-    '''call the custom comprehend model that has been previously trained to classify the document according to its medical specialty type.'''
+    '''call the custom comprehend model that has been previously trained to 
+    classify the document according to its medical specialty type.
+    '''
+
     client = boto3.client('comprehend')
 
     print("the_input: %s" % (the_input))
@@ -23,7 +26,9 @@ def call_custom_comprehend_model(the_input=None,endpoint_arn=None):
 
 
 def call_detect_sentiment(the_input=None,language_code=None):
-    '''call the deetect_sentiment API.'''
+    '''call the deetect_sentiment API to
+    return sentiment and sentiment scores.
+    '''
     client = boto3.client('comprehend')
 
     print("the_input: %s" % (the_input))

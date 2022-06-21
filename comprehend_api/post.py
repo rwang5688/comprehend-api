@@ -5,11 +5,11 @@ import json
 
 def lambda_handler(event, context):
     '''Provide an event that contains the following keys:
-
       - operation: one of the operations in the operations dict below
       - tableName: required for operations that interact with DynamoDB
       - payload: a parameter to pass to the operation being performed
     '''
+    
     # DEBUG: print event with formattings
     print("event: %s" % json.dumps(event, indent=2))
     
