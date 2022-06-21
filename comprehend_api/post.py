@@ -2,6 +2,7 @@ import boto3
 import comprehend_util
 import json
 
+
 def lambda_handler(event, context):
     '''Provide an event that contains the following keys:
 
@@ -46,3 +47,4 @@ def lambda_handler(event, context):
         "statusCode": 200,
         "body": json.dumps(response)
     }
+

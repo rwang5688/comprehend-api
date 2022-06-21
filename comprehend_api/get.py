@@ -1,6 +1,7 @@
 import comprehend_util
 import json
 
+
 def lambda_handler(event, context):
     """Sample pure Lambda function
 
@@ -43,3 +44,4 @@ def lambda_handler(event, context):
         "statusCode": 200,
         "body": json.dumps(response)
     }
+

@@ -1,6 +1,7 @@
 import boto3
 import json
 
+
 def call_custom_comprehend_model(the_input=None,endpoint_arn=None):
     '''call the custom comprehend model that has been previously trained to classify the document according to its medical specialty type.'''
     client = boto3.client('comprehend')
