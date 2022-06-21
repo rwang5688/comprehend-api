@@ -3,8 +3,8 @@ import json
 
 
 def call_custom_comprehend_model(the_input=None,endpoint_arn=None):
-    '''call the custom comprehend model that has been previously trained to 
-    classify the document according to its medical specialty type.
+    '''call the custom comprehend model that has been previously trained to classify
+    the post as suicide inducing or not.
     '''
 
     client = boto3.client('comprehend')
@@ -26,8 +26,8 @@ def call_custom_comprehend_model(the_input=None,endpoint_arn=None):
 
 
 def call_detect_sentiment(the_input=None,language_code=None):
-    '''call the deetect_sentiment API to
-    return sentiment and sentiment scores.
+    '''call the deetect_sentiment API to return sentiment and
+    sentiment scores for the post.
     '''
     client = boto3.client('comprehend')
 
