@@ -34,11 +34,27 @@ Resources:
         WriteCapacityUnits: "5"
       TableName: !Ref DynamoDBTableName
 
-  ComprehendFunction:
+  GetFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: comprehend_api/
-      Handler: app.lambda_handler
+      Handler: get.lambda_handler
+      Runtime: python3.9
+      Policies: 
+        - ComprehendFullAccess
+        - AmazonDynamoDBFullAccess
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /comprehend-api
+            Method: get
+
+  PostFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: comprehend_api/
+      Handler: post.lambda_handler
       Runtime: python3.9
       Policies: 
         - ComprehendFullAccess
@@ -54,15 +70,27 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  ComprehendFunctionApi:
-    Description: "API Gateway endpoint URL for Prod stage for Comprehend function"
+  GetFunctionApi:
+    Description: "API Gateway endpoint URL for Prod stage for GET function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+    
+  GetFunction:
+    Description: "GET Lambda Function ARN"
+    Value: !GetAtt GetFunction.Arn
+    
+  GetFunctionIamRole:
+    Description: "Implicit IAM Role created for GET function"
+    Value: !GetAtt GetFunctionRole.Arn
+
+  PostFunctionApi:
+    Description: "API Gateway endpoint URL for Prod stage for POST function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/comprehend-api/"
     
-  ComprehendFunction:
-    Description: "Comprehend Lambda Function ARN"
-    Value: !GetAtt ComprehendFunction.Arn
+  PostFunction:
+    Description: "POST Lambda Function ARN"
+    Value: !GetAtt PostFunction.Arn
     
-  ComprehendFunctionIamRole:
-    Description: "Implicit IAM Role created for Comprehend function"
-    Value: !GetAtt ComprehendFunctionRole.Arn
+  PostFunctionIamRole:
+    Description: "Implicit IAM Role created for POST function"
+    Value: !GetAtt PostFunctionRole.Arn
     
