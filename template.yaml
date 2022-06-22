@@ -39,7 +39,7 @@ Resources:
     Properties:
       CodeUri: comprehend_api/
       Handler: get.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       Policies: 
         - ComprehendFullAccess
         - AmazonDynamoDBFullAccess
@@ -55,7 +55,7 @@ Resources:
     Properties:
       CodeUri: comprehend_api/
       Handler: post.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.7
       Policies: 
         - ComprehendFullAccess
         - AmazonDynamoDBFullAccess
