@@ -37,7 +37,7 @@ def lambda_handler(event, context):
             print("message: %s" % (message))
     
     # this is for demonstrating Git pull request worklfow
-    print('this is a superfluous message to demonstrate Git pull request sworkflow')
+    print('this is a super superfluous message to demonstrate Git pull request sworkflow')
 
     # this is just a call for testing a call to comprehend
     #response = comprehend_util.call_detect_sentiment(the_input=query_string_parameters, language_code='en')
