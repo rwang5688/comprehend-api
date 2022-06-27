@@ -47,6 +47,8 @@ def lambda_handler(event, context):
     endpoint_arn = "arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/suicide-endpoint"
     response = comprehend_util.call_custom_comprehend_model(the_input=query_string_parameters, endpoint_arn=endpoint_arn)
     
+    print("response: %s" % json.dumps(response, indent=2))
+
     return_val = {
         "statusCode": 200,
         "body": json.dumps(response)
