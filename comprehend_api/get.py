@@ -43,7 +43,7 @@ def lambda_handler(event, context):
     #response = comprehend_util.call_detect_sentiment(the_input=query_string_parameters, language_code='en')
 
     # uncomment the following lines to test against inference endpoint
-    # replace 12 placeholder digits with AWS ID
+    # replace ID number with AWS ID
     endpoint_arn = "arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/suicide-endpoint"
     response = comprehend_util.call_custom_comprehend_model(the_input=query_string_parameters, endpoint_arn=endpoint_arn)
     
