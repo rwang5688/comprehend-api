@@ -21,14 +21,17 @@ def lambda_handler(event, context):
 
     if 'tableName' in body:
         dynamo = boto3.resource('dynamodb').Table(body['tableName'])
-
+    
+    # replace 12 placeholder digits with AWS ID
+    endpoint_arn = "arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/suicide-endpoint"
+    
     operations = {
         'create': lambda x: dynamo.put_item(**x),
         'read': lambda x: dynamo.get_item(**x),
         'update': lambda x: dynamo.update_item(**x),
         'delete': lambda x: dynamo.delete_item(**x),
         'list': lambda x: dynamo.scan(**x),
-        'detect': lambda x: comprehend_util.call_detect_sentiment(the_input=x, language_code='en'),
+        'detect': lambda x: comprehend_util.call_custom_comprehend_model(the_input=x, endpoint_arn=endpoint_arn),
         'echo': lambda x: x,
         'ping': lambda x: 'pong'
     }
